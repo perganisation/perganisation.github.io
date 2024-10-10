@@ -31,16 +31,6 @@
       border: 2px solid #333;
       cursor: pointer;
     }
-    .cell.x::before {
-      content: 'X';
-      color: #ff0000;
-      font-size: 3em;
-    }
-    .cell.circle::before {
-      content: 'O';
-      color: #0000ff;
-      font-size: 3em;
-    }
     .winner {
       margin-top: 20px;
       font-size: 1.5em;
@@ -99,8 +89,7 @@
     function startGame() {
       circleTurn = false;
       cells.forEach(cell => {
-        cell.classList.remove('x');
-        cell.classList.remove('circle');
+        cell.textContent = '';  // Setzt den Inhalt der Zellen zurück
         cell.removeEventListener('click', handleClick);
         cell.addEventListener('click', handleClick, { once: true });
       });
@@ -109,7 +98,7 @@
 
     function handleClick(e) {
       const cell = e.target;
-      const currentClass = circleTurn ? 'circle' : 'x';
+      const currentClass = circleTurn ? 'O' : 'X';  // Bestimme, ob "O" oder "X" gesetzt wird
       placeMark(cell, currentClass);
       if (checkWin(currentClass)) {
         endGame(false);
@@ -134,12 +123,12 @@
 
     function isDraw() {
       return [...cells].every(cell => {
-        return cell.classList.contains('x') || cell.classList.contains('circle');
+        return cell.textContent === 'X' || cell.textContent === 'O';
       });
     }
 
     function placeMark(cell, currentClass) {
-      cell.classList.add(currentClass);
+      cell.textContent = currentClass;  // Setze das Zeichen in das Feld
     }
 
     function swapTurns() {
@@ -149,7 +138,7 @@
     function checkWin(currentClass) {
       return WINNING_COMBINATIONS.some(combination => {
         return combination.every(index => {
-          return cells[index].classList.contains(currentClass);
+          return cells[index].textContent === currentClass;
         });
       });
     }
