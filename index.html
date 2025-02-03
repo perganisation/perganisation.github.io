@@ -48,10 +48,21 @@
             cursor: pointer;
             transition: transform 0.5s ease;
         }
-        .pokeball:active {
-            transform: rotate(360deg);
-        }
+        
     </style>
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const pokeball = document.querySelector(".pokeball");
+            pokeball.addEventListener("click", function() {
+                const maxX = window.innerWidth - 50;
+                const maxY = window.innerHeight - 50;
+                const randomX = Math.floor(Math.random() * maxX);
+                const randomY = Math.floor(Math.random() * maxY);
+                pokeball.style.left = `${randomX}px`;
+                pokeball.style.top = `${randomY}px`;
+            });
+        });
+    </script>
 </head>
 <body>
     <header>Informatik Leistungskurs 2023-2025 - AVG & KDG</header>
